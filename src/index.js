@@ -129,15 +129,15 @@ function calculator(number = 0, ...rest) {
 
     let obj = {
         
-        sum: function (...rest) {
+        sum(...rest) {
             return rest.reduce((res , item) => res +item , number);
         },
 
-        dif: function (...rest) {
+        dif(...rest) {
             return rest.reduce((res, item) => res - item, number);
         },
 
-        div: function (...rest) {
+        div(...rest) {
             return rest.reduce((res, item) => {
                 if (item == 0) {
                     throw new Error('division by 0');
@@ -147,7 +147,7 @@ function calculator(number = 0, ...rest) {
             }, number);
         },
 
-        mul: function (...rest) {
+        mul(...rest) {
             return rest.reduce((res, item) => res * item, number);
         }
 
