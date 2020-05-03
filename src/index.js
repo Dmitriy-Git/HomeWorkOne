@@ -37,16 +37,18 @@ function map(array, fn) {
  */
 function reduce(array, fn, initial) {
 
-  let result;
+ //let result;
+  let result = initial ? initial : array[0];
+  let startIndex = initial ? 0 : 1;
 
-  let startIndex = 0;
+  //let startIndex = 0;
 
-  if (!initial) {
+  /*if (!initial) {
     result = array[0];
     startIndex++;
   } else {
     result = initial;
-  }
+  }*/
 
   for (let i = startIndex; i < array.length; i++) {
     result = (fn(result, array[i], i, array));
