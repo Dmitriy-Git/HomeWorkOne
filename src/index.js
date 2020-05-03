@@ -18,9 +18,10 @@
  */
 function isAllTrue(array, fn) {
 
-    if (!Array.isArray(array) || !array.length) {
+    if (typeof array !== 'object' || !array.length) {
         throw new Error('empty array');
     }
+
     if (typeof fn !== 'function') { // или (typeof fn !== typeof new Function)
         throw new Error('fn is not a function');
     }
@@ -54,7 +55,7 @@ function isAllTrue(array, fn) {
  */
 function isSomeTrue(array, fn) {
 
-    if (!Array.isArray(array) || !array.length) {
+    if (typeof array !== 'object' || !array.length) {
         throw new Error('empty array');
     }
     if (typeof fn !== 'function') { // или (typeof fn !== typeof new Function)
@@ -95,8 +96,7 @@ function returnBadArguments(fn) {
     for (let i = 1; i < arguments.length; i++) {
         try {
             fn(arguments[i])
-        }
-        catch (e) {
+        } catch (e) {
             newArr.push(arguments[i])
         }
     }
@@ -130,7 +130,7 @@ function calculator(number = 0, ...rest) {
     let obj = {
         
         sum(...rest) {
-            return rest.reduce((res , item) => res +item , number);
+            return rest.reduce((res, item) => res +item, number);
         },
 
         dif(...rest) {
@@ -152,6 +152,7 @@ function calculator(number = 0, ...rest) {
         }
 
     }
+    
     return obj;
 }
 
