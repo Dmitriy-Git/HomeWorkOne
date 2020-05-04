@@ -65,7 +65,7 @@ function isSomeTrue(array, fn) {
     let isTrue = false;
 
     for (let i = 0; i < array.length; i++) {
-        if (fn(array[i]) == true) {
+        if (fn(array[i]) === true) {
             isTrue = true;
         }
     }
@@ -139,7 +139,7 @@ function calculator(number = 0, ...rest) {
 
         div(...rest) {
             return rest.reduce((res, item) => {
-                if (item == 0) {
+                if (item === 0) {
                     throw new Error('division by 0');
                 } else {
                     return res / item;
