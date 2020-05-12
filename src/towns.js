@@ -71,7 +71,21 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
 filterInput.addEventListener('keyup', function () {
-  filterBlock.style.display = 'block';
+  loadTowns().then(data => {
+    filterResult.innerHTML = '';
+    if (filterInput.value !== '') {
+
+      data.forEach(item => {
+
+        if (isMatching(item.name, filterInput.value)) {
+          const p = document.createElement('p');
+          p.innerText = item.name;
+          filterResult.appendChild(p);
+        }
+      })
+    }
+  })
+  loadingBlock.style.display = 'none';
   
 
 });
