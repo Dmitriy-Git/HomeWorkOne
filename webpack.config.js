@@ -13,11 +13,10 @@ rules.push({
 });
 module.exports = {
     entry: {
-        main: './src/index.js',
-        towns: './src/js/towns.js'
+        cookie: './src/js/cookie.js'
     },
     devServer: {
-        index: 'towns.html'
+        index: 'cookie.html'
     },
     output: {
         filename: '[name].[hash].js',
@@ -35,7 +34,7 @@ module.exports = {
                 }
             }
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin('styles.css'), 
         new HtmlPlugin({
             title: 'Main Homework',
             template: 'index.hbs',
@@ -43,10 +42,10 @@ module.exports = {
             chunks: ['main']
         }),
         new HtmlPlugin({
-            title: 'Towns',
-            template: './src/towns.hbs',
-            filename: 'towns.html',
-            chunks: ['towns']
+            title: 'Cookies',
+            template: 'cookie.hbs',
+            filename: 'cookie.html',
+            chunks: ['cookie']
         }),
         new CleanWebpackPlugin()
     ]
