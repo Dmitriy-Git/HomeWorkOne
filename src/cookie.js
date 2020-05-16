@@ -43,25 +43,76 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('keyup', function() {
-    // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
+
+const addCookies = (name, value) =>{
+  return (document.cookie = name + '=' + value);
+}
+
+const deleteCookie = (cookie_name) => {
+  var cookie_date = new Date();  // Текущая дата и время
+  cookie_date.setTime(cookie_date.getTime() - 1);
+  document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
+}
+
+
+const getCookies = () =>{
+
+  let cookies = {};
+
+  if (document.cookie.length === 0) {
+    return cookies;
+  }
+
+  document.cookie.split('; ').forEach(cookie => {
+    let pair = cookie.split('=');
+    let [name, value] = cookie.split('=');
+    cookies[name] = value;
+  });
+
+  return cookies;
+}
+
+const updateTable = () => {
+    let cookies = getCookies();
+  
+    listTable.innerText = '';
+    for(let cookie in cookies){
+      if(
+        !filterNameInput.value 
+        || cookie.includes(filterNameInput.value)
+        || cookies[cookie].includes(filterNameInput.value)){
+        
+          let row = listTable.insertRow(-1);
+          let deleteButton = document.createElement('button');
+          deleteButton.textContent = 'удалить';
+
+          deleteButton.addEventListener('click', ()=>{
+            deleteCookie(cookie);
+            updateTable();
+          })
+
+          row.insertCell(0).textContent = cookie;
+          row.insertCell(1).textContent = cookies[cookie];
+          row.insertCell(2).appendChild(deleteButton);
+        }
+    }
+  }
+
+
+filterNameInput.addEventListener('keyup', function () {
+  // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
+  updateTable();
 });
 
 addButton.addEventListener('click', () => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
-  document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+  // здесь можно обработать нажатие на кнопку "добавить cookie"
+  addCookies(addNameInput.value, addValueInput.value);
+  updateTable();
   addNameInput.value = '';
   addValueInput.value = '';
 });
 
-
-// create function  parseCookies
-const parseCookie = () => {
-  const cookie = document.cookie;
-
-  return cookie.split(';').reduce((prev, current) => {
-    const [name, value] = current.split('=');
-    prev[name] = value;
-    return prev;
-  }, {});
-}
+document.addEventListener('DOMContentLoaded', () => {
+  let cookies = getCookies();
+  updateTable(cookies);
+});

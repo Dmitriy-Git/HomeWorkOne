@@ -13,7 +13,7 @@ rules.push({
 });
 module.exports = {
     entry: {
-        cookie: './src/js/cookie.js'
+        cookie: './src/cookie.js'
     },
     devServer: {
         index: 'cookie.html'
@@ -25,7 +25,7 @@ module.exports = {
     devtool: 'source-map',
     module: { rules },
     plugins: [
-        new UglifyJsPlugin({
+        /*new UglifyJsPlugin({
             uglifyOptions: {
                 warnings: false,
                 ie8: false,
@@ -33,7 +33,7 @@ module.exports = {
                     comments: false
                 }
             }
-        }),
+        }),*/
         new ExtractTextPlugin('styles.css'), 
         new HtmlPlugin({
             title: 'Main Homework',
